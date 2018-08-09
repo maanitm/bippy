@@ -15,6 +15,8 @@ tasksThread = thread.Thread(target=tasksLoop)
 
 running = False 
 clickCamera = False
+speak = False
+textToSpeak = ""
 
 def sayText(text):
     tts = gTTS(text=text, lang='en')
@@ -29,7 +31,9 @@ def writeLoop():
 def speakLoop():
     while running:
         # speak words here
-        println()
+        if speak:
+            sayText(textToSpeak)
+            speak = False
         
 def cameraLoop():
     while running:
@@ -39,7 +43,7 @@ def cameraLoop():
             camera.capture('/home/pi/bippy/tmp_img.jpg')
             camera.stop_preview()
             println("clicked picture")
-            sayText("Great picture Maanit!")
+            sayText("Great job Maanit!")
             clickCamera = False
 
 def tasksLoop():
@@ -50,11 +54,15 @@ def tasksLoop():
 while True:
     data = arduino.read()
     if data == 0:
-        print("start")
-        running = True
-    if data == 1:
-        print("camera")
-        clickCamera = True
-    if data == 9:
         print("stop")
         running = False
+    if data == 1:
+        print("start")
+        running = True
+    if data == 2:
+        print("motivate")
+        textToSpeak = "You are doing great! Keep up the good work!"
+        speak = True
+    if data == 3:
+        print("camera")
+        clickCamera = True

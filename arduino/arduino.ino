@@ -1,9 +1,3 @@
-/*
-0 - start
-1 - camera
-9 - stop
-*/
-
 #include <Servo.h>
 
 Servo myservo;  // create servo object to control a servo
@@ -28,7 +22,10 @@ bool buttonStarted = false;
 
 int startTime = 0;
 
-int totalTime = 5000;
+double totalTime = 60000;
+int totalTasks = 5;
+
+int currentTask = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -48,15 +45,18 @@ void setup() {
 void loop() {
   // button clicked
   int state = digitalRead(buttonPin);
-
-  double currentTime = double(millis() - startTime)
+  double elapsedTime = double(millis()-startTime);
 
   if (runState == 1) {
-    double diff = currentTime/double(totalTime);
+    double diff = elapsedTime/totalTime;
     double incr = 255*diff;
-    red = incr;
-    green = 255.0 - incr;
+    red = 0;
+    green = incr;
     blue = 0;
+  }
+
+  if (elapsedTime % double(totalTime/totalTasks) == 0) {
+    Serial.println(2);
   }
 
   if (state == HIGH) {
@@ -73,14 +73,14 @@ void loop() {
       int holdLength = millis() - buttonStartTime;
       if (holdLength > 3000) {
         runState = 0;
-        Serial.println(9);
+        Serial.println(0);
         red = 0;
         green = 0;
         blue = 0;
       } else {
         if (runState == 0) {
           runState = 1;
-          Serial.println(0);
+          Serial.println(1);
           red = 0;
           green = 255;
           blue = 0;
@@ -91,19 +91,19 @@ void loop() {
       }
     }
   }
-  
+
   setColor(red, green, blue);
   delay(100);
 }
  
-void setColor(int red, int green, int blue) {
+void setColor (int red, int green, int blue) {
   analogWrite(redPin, red);
   analogWrite(greenPin, green);
   analogWrite(bluePin, blue);  
 }
 
-void cameraClicked() {
-  Serial.println(1);
+void cameraClicked () {
+  Serial.println(3);
   setColor(0, 0, 0);
   delay(500);
   setColor(0, 0, 255);
@@ -114,9 +114,11 @@ void cameraClicked() {
   delay(500);
   setColor(0, 0, 0);
   delay(500);
-  setColor(255, 255, 255);
+  setColor(0, 0, 255);
   delay(500);
   setColor(0, 0, 0);
   delay(500);
+  currentTask += 1;
   setColor(red, green, blue);
 }
+
