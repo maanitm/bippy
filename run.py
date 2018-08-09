@@ -2,7 +2,7 @@ import thread
 import serial
 from picamera import PiCamera
 from time import sleep
-import gTTs
+from gtts import gTTS
 
 camera = PiCamera()
 
