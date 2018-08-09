@@ -12,8 +12,8 @@ textsToSpeak = [
     "Good job! Keep up the good work!",
     "Okay, are you ready to show me?",
     "Alright, can I see your answer?",
-    "Wonderful! Let’s move on to the next five questions. Show me whenever you are ready",
-    "Amazing! Let’s take a short break now! I’ll tell you when to start again.",
+    "Wonderful! Let's move on to the next five questions. Show me whenever you are ready",
+    "Amazing! Let's take a short break now! I'll tell you when to start again.",
     "Are you sure that is the correct answer?",
     "Great job! We are all done. Thank you, %s!" % name
 ]
