@@ -1,5 +1,5 @@
-import serial
 import thread
+import serial
 from picamera import PiCamera
 from time import sleep
 
@@ -22,7 +22,9 @@ def writeLoop():
     
 def speakLoop():
     while running:
-
+        # speak words here
+        println()
+        
 def cameraLoop():
     while running:
         if clickCamera:
@@ -35,7 +37,8 @@ def cameraLoop():
 
 def tasksLoop():
     while running:
-
+        # get tasks here
+        println()
 
 while True:
     data = arduino.read()
