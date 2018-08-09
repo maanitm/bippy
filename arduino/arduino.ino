@@ -36,10 +36,6 @@ void setup() {
   pinMode(bluePin, OUTPUT);
   
   pinMode(buttonPin, INPUT);
-  
-  red = 0;
-  green = 0;
-  blue = 0;
 }
 
 void loop() {
@@ -47,15 +43,32 @@ void loop() {
   int state = digitalRead(buttonPin);
   double elapsedTime = double(millis()-startTime);
 
-  if (runState == 1) {
+  if (runState == 1 && elapsedTime <= totalTime) {
     double diff = elapsedTime/totalTime;
     double incr = 255*diff;
+    if (elapsedTime < totalTime/3) {
+      red = 0;
+      green = 255;
+      blue = 0;  
+    } else if (elapsedTime < (totalTime*2)/3) {
+      red = 255;
+      green = 255;
+      blue = 0;
+    } else {
+      red = 255;
+      green = 0;
+      blue = 0;
+    }
+    Serial.println(int(incr));
+  } else if (elapsedTime > totalTime) {
+    Serial.println(4);
+    runState = 0;
     red = 0;
-    green = incr;
+    green = 0;
     blue = 0;
   }
 
-  if (elapsedTime % double(totalTime/totalTasks) == 0) {
+  if (int(elapsedTime) % int(totalTime/totalTasks) == 0) {
     Serial.println(2);
   }
 
@@ -85,13 +98,15 @@ void loop() {
           green = 255;
           blue = 0;
           startTime = millis();
+          buttonStartTime = 0;
+          buttonStarted = false;
         } else {
           cameraClicked();  
         }
       }
     }
   }
-
+  Serial.println(green);
   setColor(red, green, blue);
   delay(100);
 }
@@ -121,4 +136,5 @@ void cameraClicked () {
   currentTask += 1;
   setColor(red, green, blue);
 }
+
 

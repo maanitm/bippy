@@ -66,3 +66,7 @@ while True:
     if data == 3:
         print("camera")
         clickCamera = True
+    if data == 4:
+        print("done")
+        textToSpeak = "Great job today! See you later."
+        speak = True
