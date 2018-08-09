@@ -1,10 +1,10 @@
 import thread
 import serial
-from picamera import PiCamera
+# from picamera import PiCamera
 from time import sleep
 from gtts import gTTS
 
-camera = PiCamera()
+# camera = PiCamera()
 
 arduino = serial.Serial(port='/dev/cu.wchusbserial1420', baudrate=9600)
 
@@ -38,10 +38,10 @@ def speakLoop():
 def cameraLoop():
     while running:
         if clickCamera:
-            camera.start_preview()
+            # camera.start_preview()
             sleep(3)
-            camera.capture('/home/pi/bippy/tmp_img.jpg')
-            camera.stop_preview()
+            # camera.capture('/home/pi/bippy/tmp_img.jpg')
+            # camera.stop_preview()
             println("clicked picture")
             sayText("Great job Maanit!")
             clickCamera = False
