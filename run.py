@@ -6,7 +6,7 @@ from gtts import gTTS
 
 # camera = PiCamera()
 
-arduino = serial.Serial(port='/dev/cu.wchusbserial1410', baudrate=9600)
+arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 
 writeThread = thread.Thread(target=writeLoop)
 speakThread = thread.Thread(target=speakLoop)

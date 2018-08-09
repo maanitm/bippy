@@ -59,7 +59,6 @@ void loop() {
       green = 0;
       blue = 0;
     }
-    Serial.println(int(incr));
   } else if (elapsedTime > totalTime) {
     Serial.println(4);
     runState = 0;
@@ -106,7 +105,6 @@ void loop() {
       }
     }
   }
-  Serial.println(green);
   setColor(red, green, blue);
   delay(100);
 }
