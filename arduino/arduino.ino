@@ -1,3 +1,9 @@
+/*
+0 - start
+1 - camera
+9 - stop
+*/
+
 #include <Servo.h>
 
 Servo myservo;  // create servo object to control a servo
@@ -43,13 +49,14 @@ void loop() {
   // button clicked
   int state = digitalRead(buttonPin);
 
+  double currentTime = double(millis() - startTime)
+
   if (runState == 1) {
-    double diff = double(millis()-startTime)/double(totalTime);
+    double diff = currentTime/double(totalTime);
     double incr = 255*diff;
     red = incr;
-    green = 255-incr;
+    green = 255.0 - incr;
     blue = 0;
-    Serial.println();
   }
 
   if (state == HIGH) {
@@ -66,14 +73,14 @@ void loop() {
       int holdLength = millis() - buttonStartTime;
       if (holdLength > 3000) {
         runState = 0;
-        // stop ras pi code here
+        Serial.println(9);
         red = 0;
         green = 0;
         blue = 0;
       } else {
         if (runState == 0) {
           runState = 1;
-          // run ras pi code here
+          Serial.println(0);
           red = 0;
           green = 255;
           blue = 0;
@@ -85,17 +92,18 @@ void loop() {
     }
   }
   
-  setColor(red, green, blue);  // red
+  setColor(red, green, blue);
   delay(100);
 }
  
-void setColor (int red, int green, int blue) {
+void setColor(int red, int green, int blue) {
   analogWrite(redPin, red);
   analogWrite(greenPin, green);
   analogWrite(bluePin, blue);  
 }
 
-void cameraClicked () {
+void cameraClicked() {
+  Serial.println(1);
   setColor(0, 0, 0);
   delay(500);
   setColor(0, 0, 255);
@@ -106,10 +114,9 @@ void cameraClicked () {
   delay(500);
   setColor(0, 0, 0);
   delay(500);
-  setColor(0, 0, 255);
+  setColor(255, 255, 255);
   delay(500);
   setColor(0, 0, 0);
   delay(500);
   setColor(red, green, blue);
 }
-
