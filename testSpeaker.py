@@ -22,6 +22,6 @@ textsToSpeak = [
 def sayText(text):
     tts = gTTS(text=text, lang='en')
     tts.save("text.wav")
-    os.system("afplay text.wav")
+    os.system("aplay text.wav")
 
 sayText("hello there maanit")
