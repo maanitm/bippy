@@ -2,6 +2,7 @@ import thread
 import serial
 from picamera import PiCamera
 from time import sleep
+import gTTs
 
 camera = PiCamera()
 
@@ -14,6 +15,11 @@ tasksThread = thread.Thread(target=tasksLoop)
 
 running = False 
 clickCamera = False
+
+def sayText(text):
+    tts = gTTS(text=text, lang='en')
+    tts.save("text.mp3")
+    os.system("mpg321 text.mp3")
 
 def writeLoop():
     while running:
@@ -33,6 +39,7 @@ def cameraLoop():
             camera.capture('/home/pi/bippy/tmp_img.jpg')
             camera.stop_preview()
             println("clicked picture")
+            sayText("Great picture Maanit!")
             clickCamera = False
 
 def tasksLoop():
