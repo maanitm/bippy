@@ -8,6 +8,10 @@ from gtts import gTTS
 
 arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 
+tts = gTTS(text="Hi. I am Bippy. Are you ready to start summer reading?", lang='en')
+tts.save("demoText.mp3")
+os.system("mpg321 demoText.mp3")
+
 while True:
     data = arduino.read()
     if data == 0:
