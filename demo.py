@@ -1,23 +1,19 @@
-import thread
 import serial
-# from picamera import PiCamera
-from time import sleep
 from gtts import gTTS
 import os
-# camera = PiCamera()
 
-arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
+arduino = serial.Serial(port='/dev/cu.wchusbserial1410', baudrate=9600)
 
-#tts = gTTS(text="Hi. I am Bippy. Are you ready to start summer reading?", lang='en')
-#tts.save("demoText.mp3")
+tts = gTTS(text="Hi. I am Bippy. Are you ready to start summer reading?", lang='en')
+tts.save("demoText.mp3")
 #os.system("mpg321 demoText.mp3")
 
 while True:
     data = arduino.read()
     print(data)
-    if data == 0:
+    if b'0' in data:
         print("stop")
-    if data == 1:
+    if b'1' in data:
         print("start")
         os.system("mpg321 demoText.mp3")
     
