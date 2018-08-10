@@ -14,6 +14,7 @@ os.system("mpg321 demoText.mp3")
 
 while True:
     data = arduino.read()
+    print(data)
     if data == 0:
         print("stop")
     if data == 1:
