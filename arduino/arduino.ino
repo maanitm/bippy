@@ -1,19 +1,13 @@
-#include <Servo.h>
-
-Servo myservo;  // create servo object to control a servo
-
-int redPin = 11;
-int greenPin = 10;
-int bluePin = 9;
-
-int motorPin = 2;
+int redPin = 2;
+int greenPin = 3;
+int bluePin = 4;
 
 int buttonPin = 5;
 
 int red = 0;
 int green = 0;
 int blue = 0;
-int servoPos = 0;
+
 int buttonState = 0;
 bool runState = false;
 
@@ -22,14 +16,13 @@ bool buttonStarted = false;
 
 int startTime = 0;
 
-double totalTime = 60000;
+double totalTime = 5000;
 int totalTasks = 5;
 
 int currentTask = 0;
 
 void setup() {
   Serial.begin(9600);
-  myservo.attach(motorPin);
   
   pinMode(redPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
