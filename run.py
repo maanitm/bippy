@@ -17,7 +17,7 @@ textToSpeak = ""
 def sayText(text):
     tts = gTTS(text=text, lang='en')
     tts.save("demoText.mp3")
-    os.system("mpg321 demoText.mp3")
+    os.system("mpg123 demoText.mp3")
 
 def writeLoop():
     global running
