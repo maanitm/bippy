@@ -22,7 +22,7 @@ textsToSpeak = [
 def sayText(text):
     tts = gTTS(text=text, lang='en')
     tts.save("text.mp3")
-    os.system("mpg321 text.mp3")
+    os.system("mpg123 text.mp3")
 
 for i in textsToSpeak:
     sayText(i)
