@@ -24,4 +24,5 @@ def sayText(text):
     tts.save("text.mp3")
     os.system("mpg321 text.mp3")
 
-sayText("hello there maanit")
+for i in textsToSpeak:
+    sayText(i)
