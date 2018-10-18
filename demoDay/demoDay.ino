@@ -81,6 +81,14 @@ void loop() {
     Serial.println(1);
     triggerSpeakerDone = true;
   }
+  if (triggerSpeakerDone) {
+    triggerColor = false;
+    triggerColorDone = false;
+    triggerCam = false;
+    triggerCamDone = false;
+    triggerSpeaker = false;
+    triggerSpeakerDone = false;
+  }
   setColor(red, green, blue);
   delay(100);
 }
