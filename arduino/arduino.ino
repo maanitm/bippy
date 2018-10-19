@@ -124,65 +124,65 @@ void loop() {
 
 void moveSteps(int steps) {
   for(int x = 0; x < steps; x++) {
-  for(int i = 0; i < 8; i++) {
-    switch(i){ 
-   case 0: 
-     digitalWrite(motorPin1, LOW);  
-     digitalWrite(motorPin2, LOW); 
-     digitalWrite(motorPin3, LOW); 
-     digitalWrite(motorPin4, HIGH); 
-   break;  
-   case 1: 
-     digitalWrite(motorPin1, LOW);  
-     digitalWrite(motorPin2, LOW); 
-     digitalWrite(motorPin3, HIGH); 
-     digitalWrite(motorPin4, HIGH); 
-   break;  
-   case 2: 
-     digitalWrite(motorPin1, LOW);  
-     digitalWrite(motorPin2, LOW); 
-     digitalWrite(motorPin3, HIGH); 
-     digitalWrite(motorPin4, LOW); 
-   break;  
-   case 3: 
-     digitalWrite(motorPin1, LOW);  
-     digitalWrite(motorPin2, HIGH); 
-     digitalWrite(motorPin3, HIGH); 
-     digitalWrite(motorPin4, LOW); 
-   break;  
-   case 4: 
-     digitalWrite(motorPin1, LOW);  
-     digitalWrite(motorPin2, HIGH); 
-     digitalWrite(motorPin3, LOW); 
-     digitalWrite(motorPin4, LOW); 
-   break;  
-   case 5: 
-     digitalWrite(motorPin1, HIGH);  
-     digitalWrite(motorPin2, HIGH); 
-     digitalWrite(motorPin3, LOW); 
-     digitalWrite(motorPin4, LOW); 
-   break;  
-     case 6: 
-     digitalWrite(motorPin1, HIGH);  
-     digitalWrite(motorPin2, LOW); 
-     digitalWrite(motorPin3, LOW); 
-     digitalWrite(motorPin4, LOW); 
-   break;  
-   case 7: 
-     digitalWrite(motorPin1, HIGH);  
-     digitalWrite(motorPin2, LOW); 
-     digitalWrite(motorPin3, LOW); 
-     digitalWrite(motorPin4, HIGH); 
-   break;  
-   default: 
-     digitalWrite(motorPin1, LOW);  
-     digitalWrite(motorPin2, LOW); 
-     digitalWrite(motorPin3, LOW); 
-     digitalWrite(motorPin4, LOW); 
-   break;  
- }
-    delay(stepDelay);
-  }   
+    for(int i = 0; i < 8; i++) {
+      switch(i) { 
+        case 0: 
+          digitalWrite(motorPin1, LOW);  
+          digitalWrite(motorPin2, LOW); 
+          digitalWrite(motorPin3, LOW); 
+          digitalWrite(motorPin4, HIGH); 
+        break;  
+        case 1: 
+          digitalWrite(motorPin1, LOW);  
+          digitalWrite(motorPin2, LOW); 
+          digitalWrite(motorPin3, HIGH); 
+          digitalWrite(motorPin4, HIGH); 
+        break;  
+        case 2: 
+          digitalWrite(motorPin1, LOW);  
+          digitalWrite(motorPin2, LOW); 
+          digitalWrite(motorPin3, HIGH); 
+          digitalWrite(motorPin4, LOW); 
+        break;  
+        case 3: 
+          digitalWrite(motorPin1, LOW);  
+          digitalWrite(motorPin2, HIGH); 
+          digitalWrite(motorPin3, HIGH); 
+          digitalWrite(motorPin4, LOW); 
+        break;  
+        case 4: 
+          digitalWrite(motorPin1, LOW);  
+          digitalWrite(motorPin2, HIGH); 
+          digitalWrite(motorPin3, LOW); 
+          digitalWrite(motorPin4, LOW); 
+        break;  
+        case 5: 
+          digitalWrite(motorPin1, HIGH);  
+          digitalWrite(motorPin2, HIGH); 
+          digitalWrite(motorPin3, LOW); 
+          digitalWrite(motorPin4, LOW); 
+        break;  
+          case 6: 
+          digitalWrite(motorPin1, HIGH);  
+          digitalWrite(motorPin2, LOW); 
+          digitalWrite(motorPin3, LOW); 
+          digitalWrite(motorPin4, LOW); 
+        break;  
+        case 7: 
+          digitalWrite(motorPin1, HIGH);  
+          digitalWrite(motorPin2, LOW); 
+          digitalWrite(motorPin3, LOW); 
+          digitalWrite(motorPin4, HIGH); 
+        break;  
+        default: 
+          digitalWrite(motorPin1, LOW);  
+          digitalWrite(motorPin2, LOW); 
+          digitalWrite(motorPin3, LOW); 
+          digitalWrite(motorPin4, LOW); 
+        break;  
+      }
+      delay(stepDelay);
+    }   
   }
 }
  
