@@ -9,18 +9,18 @@ import os
 # IO Values - 1:Start, 2:
 
 # Constants
-arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
+# arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 arduinoThread = Thread(target=readIo)
 
 # Variables
 connected = True
-ioValue = 0;
+ioValue = 1
 tasks = [{"name":"Math HW", "time":30}]
 
 # Functions
 def readIo():
     global ioValue
-    data = arduino.read()
+    data = "1"#arduino.read()
     print(data)
     ioValue = int(data)
 
