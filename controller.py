@@ -10,7 +10,6 @@ import os
 
 # Constants
 # arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
-arduinoThread = Thread(target=readIo)
 
 # Variables
 connected = True
@@ -27,11 +26,13 @@ def readIo():
 def sayText(text):
     talking = True
     tts = gTTS(text=text, lang='en')
+    print(text)
     tts.save("tempText.mp3")
     os.system("mpg123 tempText.mp3")
     talking = False
 
 # Setup
+arduinoThread = Thread(target=readIo)
 arduinoThread.start()
 
 # Main Thread
