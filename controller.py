@@ -9,19 +9,20 @@ import os
 # IO Values - 1:Start, 2:
 
 # Constants
-# arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
+arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 
 # Variables
 connected = True
-ioValue = 1
-tasks = [{"name":"Math HW", "time":30}]
+ioValue = 0
+tasks = [{"name":"Math work", "time":30}]
 
 # Functions
 def readIo():
     global ioValue
-    data = "1"#arduino.read()
-    print(data)
-    ioValue = int(data)
+    while True:
+        data = arduino.read()
+        print(data)
+        ioValue = int(data)
 
 def sayText(text):
     talking = True
@@ -41,9 +42,8 @@ while True:
     if connected:
         if ioValue == 1:
             if tasks:
-                for task in tasks:
-                    sayText("Start %s for %d mins." % (task["name"], task["time"]))
-                    
+                task = tasks[0]
+                sayText("Start %s for %d mins." % (task["name"], task["time"]))
             else:
                 sayText("Please add a task to the app.")
     else:
