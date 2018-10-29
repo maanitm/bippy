@@ -1,8 +1,8 @@
-int redPin = 2;
-int greenPin = 3;
-int bluePin = 4;
+int redPin = 8;
+int greenPin = 7;
+int bluePin = 6;
 
-int buttonPin = 5;
+int buttonPin = 9;
 
 int red = 0;
 int green = 0;
