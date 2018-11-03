@@ -56,6 +56,7 @@ void loop() {
     if (buttonStarted == false) {
       buttonStartTime = millis();
       buttonStarted = true;
+      Serial.println("Click");
     }
   } else {
     // button released
@@ -63,7 +64,22 @@ void loop() {
       buttonState = 0;
       buttonStarted = false;
       int holdLength = millis() - buttonStartTime;
-      Serial.println(1);
+
+      if (holdLength > 2250) {
+        if (red == 0 && blue == 0 && green == 0) {
+          red = 0;
+          blue = 255;
+          green = 0;
+          setColor(red, green, blue);  
+          Serial.println(1);
+        } else {
+          red = 0;
+          blue = 0;
+          green = 0;
+          setColor(red, green, blue);
+          Serial.println(0);
+        }
+      }
     }
   }
   

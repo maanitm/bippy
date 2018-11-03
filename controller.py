@@ -6,7 +6,7 @@ from gtts import gTTS
 import os
 
 # Notes
-# IO Values - 1:Start, 2:
+# IO Values - 0:Stop, 1:Start, 2:
 
 # Constants
 arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
@@ -46,5 +46,7 @@ while True:
                 sayText("Start %s for %d mins." % (task["name"], task["time"]))
             else:
                 sayText("Please add a task to the app.")
+        if ioValue == 0:
+            sayText("Goodbye!")
     else:
         print("E: not connected to wifi")
