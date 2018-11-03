@@ -15,6 +15,7 @@ arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 connected = True
 ioValue = "."
 tasks = [{"name":"Math work", "time":30}]
+name = "Maanit"
 
 # Functions
 
@@ -27,7 +28,21 @@ def sayText(text):
     talking = False
 
 # Main Thread
-
+startedActivity = False
+speechVar1 = ""
+currentTask
+textsToSpeak = [
+    "Hello, %s, my name is Bippy. Today, we are just going to do a few short tasks. Then, you can take a break for your hard work!" % name,
+    "We are going to start %s now. Show it to me whenever you are ready." % speechVar1,
+    "You are doing great!",
+    "Good job! Keep up the good work!",
+    "Okay, are you ready to show me?",
+    "Alright, can I see your answer?",
+    "Wonderful! Let’s move on to the next five questions. Show me whenever you are ready",
+    "Amazing! Let’s take a short break now! I’ll tell you when to start again.",
+    "Are you sure that is the correct answer?",
+    "Great job! We are all done. Thank you, %s!" % speechVar1
+]
 while True:
     if connected:
         data = arduino.read()
@@ -35,16 +50,21 @@ while True:
         print(ioValue[0])
         if "1" in ioValue:
             if tasks:
-                task = tasks[0]
-                print("Talking")
-                sayText("Start %s for %d mins." % (task["name"], task["time"]))
+                currentTask = 0
+                startedActivity = True
             else:
                 sayText("Please add a task to the app.")
             ioValue = "."
         if "0" in ioValue:
-            print("Goodbye")
             sayText("Goodbye!")
             ioValue = "."
+        
+        if startedActivity:
+            speechVar1 = name
+            sayText(textsToSpeak[0])
+            speechVar1 = tasks[currentTask]["name"]
+            sayText(textsToSpeak[1])
+
     else:
         print("E: not connected to wifi")
 
