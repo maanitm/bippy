@@ -13,7 +13,7 @@ arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 
 # Variables
 connected = True
-ioValue = ""
+ioValue = "."
 tasks = [{"name":"Math work", "time":30}]
 
 # Functions
@@ -40,7 +40,7 @@ arduinoThread.start()
 
 while True:
     if connected:
-        print ioValue
+        print(ioValue)
         if ioValue in "1":
             if tasks:
                 task = tasks[0]
