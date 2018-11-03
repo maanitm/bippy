@@ -13,7 +13,7 @@ arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 
 # Variables
 connected = True
-ioValue = -1
+ioValue = ""
 tasks = [{"name":"Math work", "time":30}]
 
 # Functions
@@ -22,7 +22,7 @@ def readIo():
     while True:
         data = arduino.read()
         print(data)
-        ioValue = int(data)
+        ioValue = data
 
 def sayText(text):
     talking = True
@@ -40,13 +40,13 @@ arduinoThread.start()
 
 while True:
     if connected:
-        if ioValue == 1:
+        if ioValue in "1":
             if tasks:
                 task = tasks[0]
                 sayText("Start %s for %d mins." % (task["name"], task["time"]))
             else:
                 sayText("Please add a task to the app.")
-        if ioValue == 0:
+        if ioValue in "0":
             sayText("Goodbye!")
     else:
         print("E: not connected to wifi")
