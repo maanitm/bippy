@@ -82,6 +82,8 @@ void loop() {
           setColor(red, green, blue);
           Serial.println(0);
         }
+      } else {
+        Serial.println(2);
       }
     }
   }

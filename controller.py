@@ -30,6 +30,7 @@ def sayText(text):
 # Main Thread
 startedActivity = False
 currentTask = -1
+intro = True
 textsToSpeak = [
     "Hello, %s, my name is Bippy. Today, we are just going to do a few short tasks. Then, you can take a break for your hard work!" % name,
     "We are going to start %s now. Show it to me whenever you are ready.",
@@ -58,7 +59,7 @@ while True:
             sayText("Goodbye!")
             ioValue = "."
             startedActivity = False
-        if  ioValue in "2":
+        if  ioValue in "2" and startedActivity:
             sayText(textsToSpeak[5])
             sleep(3)
             if len(tasks) > currentTask:
@@ -69,11 +70,11 @@ while True:
                 startedActivity = False
             ioValue = "."
         
-        if startedActivity:
+        if startedActivity and intro:
             sayText(textsToSpeak[0])
             sayText(textsToSpeak[1] % tasks[currentTask]["name"])
-            arduino.write(bytes("rgb", encoding='utf-8'))
-            startedActivity = False
+            
+            intro = False
 
     else:
         print("E: not connected to wifi")
