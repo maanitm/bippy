@@ -62,7 +62,7 @@ while True:
         if  ioValue in "2" and startedActivity:
             sayText(textsToSpeak[5])
             sleep(3)
-            if len(tasks) > currentTask:
+            if len(tasks) > currentTask + 1:
                 currentTask += 1
                 sayText(textsToSpeak[6] % tasks[currentTask]["name"])
             else:
