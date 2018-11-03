@@ -72,6 +72,7 @@ while True:
         if startedActivity:
             sayText(textsToSpeak[0])
             sayText(textsToSpeak[1] % tasks[currentTask]["name"])
+            arduino.write(bytes("rgb", encoding='utf-8'))
             startedActivity = False
 
     else:
