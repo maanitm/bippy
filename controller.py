@@ -40,14 +40,15 @@ arduinoThread.start()
 
 while True:
     if connected:
-        print(ioValue)
         if ioValue in "1":
+            print(ioValue)
             if tasks:
                 task = tasks[0]
                 sayText("Start %s for %d mins." % (task["name"], task["time"]))
             else:
                 sayText("Please add a task to the app.")
         if ioValue in "0":
+            print(ioValue)
             sayText("Goodbye!")
     else:
         print("E: not connected to wifi")
