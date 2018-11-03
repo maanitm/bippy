@@ -30,7 +30,7 @@ def sayText(text):
 # Main Thread
 startedActivity = False
 speechVar1 = ""
-currentTask
+currentTask = -1
 textsToSpeak = [
     "Hello, %s, my name is Bippy. Today, we are just going to do a few short tasks. Then, you can take a break for your hard work!" % name,
     "We are going to start %s now. Show it to me whenever you are ready." % speechVar1,
@@ -58,12 +58,14 @@ while True:
         if "0" in ioValue:
             sayText("Goodbye!")
             ioValue = "."
+            startedActivity = False
         
         if startedActivity:
             speechVar1 = name
             sayText(textsToSpeak[0])
             speechVar1 = tasks[currentTask]["name"]
             sayText(textsToSpeak[1])
+            startedActivity = False
 
     else:
         print("E: not connected to wifi")
