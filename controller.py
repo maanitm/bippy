@@ -48,8 +48,10 @@ while True:
                 sayText("Start %s for %d mins." % (task["name"], task["time"]))
             else:
                 sayText("Please add a task to the app.")
+            ioValue = "."
         if "0" in ioValue:
             print("Goodbye")
             sayText("Goodbye!")
+            ioValue = "."
     else:
         print("E: not connected to wifi")
