@@ -17,12 +17,6 @@ ioValue = "."
 tasks = [{"name":"Math work", "time":30}]
 
 # Functions
-def readIo():
-    global ioValue
-    while True:
-        data = arduino.read()
-        print(data)
-        ioValue = data
 
 def sayText(text):
     talking = True
@@ -32,14 +26,12 @@ def sayText(text):
     os.system("mpg123 tempText.mp3")
     talking = False
 
-# Setup
-arduinoThread = Thread(target=readIo)
-arduinoThread.start()
-
 # Main Thread
 
 while True:
     if connected:
+        data = arduino.read()
+        ioValue = data
         print(ioValue[0])
         if "1" in ioValue:
             if tasks:
