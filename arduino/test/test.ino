@@ -48,8 +48,8 @@ void setup() {
 
 void loop() {
   if (Serial.available() > 0) {
-    receivedChar = Serial.read();
-    Serial.println(recievedChar);
+    char receivedChar = Serial.read();
+    Serial.println(receivedChar);
   }
   // button clicked
   int state = digitalRead(buttonPin);
