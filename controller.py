@@ -40,6 +40,7 @@ arduinoThread.start()
 
 while True:
     if connected:
+        print(ioValue[0])
         if "1" in ioValue:
             if tasks:
                 task = tasks[0]
