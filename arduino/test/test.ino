@@ -47,6 +47,10 @@ void setup() {
 }
 
 void loop() {
+  if (Serial.available() > 0) {
+    receivedChar = Serial.read();
+    Serial.println(recievedChar);
+  }
   // button clicked
   int state = digitalRead(buttonPin);
   double elapsedTime = double(millis()-startTime);
