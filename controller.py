@@ -9,7 +9,7 @@ import os
 # IO Values - 0:Stop, 1:Start, 2:
 
 # Constants
-arduino = serial.Serial(port='/dev/ttyUSB1', baudrate=9600)
+arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 
 # Variables
 connected = True
