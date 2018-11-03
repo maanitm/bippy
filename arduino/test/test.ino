@@ -46,14 +46,17 @@ void setup() {
   pinMode(buttonPin, INPUT);
 }
 
+String received = "";
+
 void loop() {
   if (Serial.available() > 0) {
     char receivedChar = Serial.read();
-    Serial.println(receivedChar);
-    red = 255;
-    blue = 255;
-    green = 255;
-    setColor(red, green, blue);
+    
+    if (receivedChar == ';') {
+      
+    } else {
+      received = received + receivedChar;
+    }
   }
   // button clicked
   int state = digitalRead(buttonPin);

@@ -73,7 +73,7 @@ while True:
         if startedActivity and intro:
             sayText(textsToSpeak[0])
             sayText(textsToSpeak[1] % tasks[currentTask]["name"])
-            arduino.write('r122')
+            arduino.write('r122;')
             
             intro = False
 
