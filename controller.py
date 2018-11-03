@@ -41,7 +41,7 @@ arduinoThread.start()
 while True:
     if connected:
         if ioValue in "1":
-            print(ioValue)
+            # print(ioValue)
             if tasks:
                 task = tasks[0]
                 print("Talking")
@@ -49,7 +49,7 @@ while True:
             else:
                 sayText("Please add a task to the app.")
         if ioValue in "0":
-            print(ioValue)
+            # print(ioValue)
             print("Goodbye")
             sayText("Goodbye!")
     else:
