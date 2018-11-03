@@ -56,7 +56,6 @@ void loop() {
     if (buttonStarted == false) {
       buttonStartTime = millis();
       buttonStarted = true;
-      Serial.println("Click");
     }
   } else {
     // button released
