@@ -53,7 +53,15 @@ void loop() {
     char receivedChar = Serial.read();
     
     if (receivedChar == ';') {
-      
+      if (received[0] == 'r') {
+        red = int(received[1]) * 100 + int(received[2]) * 10 int(received[3]);
+      } else if (received[0] == 'g') {
+        green = int(received[1]) * 100 + int(received[2]) * 10 int(received[3]);
+      } else if (received[0] == 'b') {
+        blue = int(received[1]) * 100 + int(received[2]) * 10 int(received[3]);
+      }
+      setColor(red, green, blue);
+      received = "";
     } else {
       received = received + receivedChar;
     }
