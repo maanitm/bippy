@@ -14,7 +14,7 @@ arduino = serial.Serial(port='/dev/ttyUSB1', baudrate=9600)
 # Variables
 connected = True
 ioValue = "."
-tasks = [{"name":"Math work", "time":30}]
+tasks = [{"name":"Math work", "time":2}, {"name":"English questions", "time":60}]
 name = "Maanit"
 
 # Functions
