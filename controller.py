@@ -116,6 +116,7 @@ while True:
             startTime = time.time()
             intro = False
         print(startedActivity)
+        print(currentTime)
         if startedActivity:
             elapsed = currentTime - startTime
             total = float(tasks[currentTask]["time"]) * 60.0
