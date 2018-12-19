@@ -14,7 +14,7 @@ arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 camera = PiCamera()
 
 # Variables
-connected = False
+connected = True
 ioValue = "."
 tasks = [{"name":"Math work", "time":2}, {"name":"English questions", "time":60}]
 name = "Maanit"
@@ -86,7 +86,7 @@ while True:
     print("a")
     if connected:
         currentTime = time.time()
-        data = arduino.read()
+        data = "."#arduino.read()
         ioValue = data
         print(ioValue[0])
         if ioValue in "1":
