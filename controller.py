@@ -29,18 +29,18 @@ def sayText(text):
     talking = False
 
 def takePicture():
-    arduino.write('r255;g255;b255')
+    arduino.write('r255;g255;b255;')
     sleep(0.5)
-    arduino.write('r000;g000;b000')
+    arduino.write('r000;g000;b000;')
     sleep(0.5)
-    arduino.write('r255;g255;b255')
+    arduino.write('r255;g255;b255;')
     sleep(0.5)
-    arduino.write('r000;g000;b000')
+    arduino.write('r000;g000;b000;')
     sleep(0.5)
-    arduino.write('r255;g255;b255')
-    camera.capture('/home/pi/Desktop/image.jpg')
+    arduino.write('r255;g255;b255;')
+    camera.capture('tempImage.jpg')
     sleep(0.5)
-    arduino.write('r000;g000;b000')
+    arduino.write('r000;g000;b000;')
 
 # Main Thread
 startedActivity = False
