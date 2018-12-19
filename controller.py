@@ -14,7 +14,7 @@ arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 camera = PiCamera()
 
 # Variables
-connected = True
+connected = False
 ioValue = "."
 tasks = [{"name":"Math work", "time":2}, {"name":"English questions", "time":60}]
 name = "Maanit"
