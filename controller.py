@@ -30,24 +30,24 @@ def sayText(text):
     talking = False
 
 def takePicture():
-    arduino.write('r255;')
+    arduino.write('r000;')
     print("on")
     sleep(1)
     arduino.write('r000;')
     print("off")
     sleep(1)
-    arduino.write('r255;')
+    arduino.write('g000;')
     print("on")
     sleep(1)
-    arduino.write('r000;')
+    arduino.write('g000;')
     print("off")
     sleep(1)
-    arduino.write('r255;')
+    arduino.write('b000;')
     print("on")
     camera.capture('tempImage.jpg')
     print("capture")
     sleep(1)
-    arduino.write('r000;')
+    arduino.write('b000;')
     print("off")
 
 # Main Thread
