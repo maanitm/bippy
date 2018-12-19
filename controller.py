@@ -115,6 +115,7 @@ while True:
             sayText(textsToSpeak[1] % tasks[currentTask]["name"])
             startTime = time.time()
             intro = False
+        print(startedActivity)
         if startedActivity:
             elapsed = currentTime - startTime
             total = float(tasks[currentTask]["time"]) * 60.0
@@ -122,6 +123,7 @@ while True:
             if elapsed > total/2:
                 # print(255-int(i*(255/totalTime))))
                 currentRgb = (255, 255-int((elapsed-(total/2))*(255/total)), 0)
+            print(currentRgb)
             print('r{0:0=3d};g{0:0=3d};b{0:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
             arduino.write('r{0:0=3d};g{0:0=3d};b{0:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
 
