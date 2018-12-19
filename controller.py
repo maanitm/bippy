@@ -65,6 +65,7 @@ def takePicture():
 # Main Thread
 startedActivity = False
 currentTask = -1
+data = "."
 intro = True
 startTime = 0
 currentTime = 0
@@ -82,11 +83,19 @@ textsToSpeak = [
     "Goodbye!",
     "Please add a task to the app."
 ]
+
+def readArduino():
+    global data
+    data = arduino.read()
+    sleep(0.05)
+
+readThread = Thread(target=readArduino)
+readThread.start()
+
 while True:
     print("a")
     if connected:
         currentTime = time.time()
-        data = "."#arduino.read()
         ioValue = data
         print(ioValue[0])
         if ioValue in "1":
