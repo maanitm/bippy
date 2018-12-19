@@ -2,6 +2,7 @@ from threading import Thread
 import serial
 from picamera import PiCamera
 from time import sleep
+import time
 from gtts import gTTS
 import os
 
