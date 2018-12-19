@@ -140,5 +140,3 @@ while True:
 
     else:
         print("E: not connected to wifi")
-
-    # sleep(0.05)
