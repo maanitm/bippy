@@ -59,6 +59,9 @@ void loop() {
         green = int(received[1]) * 100 + int(received[2]) * 10 + int(received[3]);
       } else if (received[0] == 'b') {
         blue = int(received[1]) * 100 + int(received[2]) * 10 + int(received[3]);
+      } else if (received[0] == 'm') {
+        int stepVal = int(received[1]) * 100 + int(received[2]) * 10 + int(received[3]);
+        moveSteps(stepVal);
       }
       setColor(red, green, blue);
       received = "";
