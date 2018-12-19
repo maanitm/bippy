@@ -103,6 +103,7 @@ while True:
             sayText(textsToSpeak[1] % tasks[currentTask]["name"])
             arduino.write('r255;')
             arduino.write('g255;')
+            arduino.write('b000;')
             startTime = time.time()
             intro = False
         if startedActivity:
