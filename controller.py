@@ -30,17 +30,24 @@ def sayText(text):
 
 def takePicture():
     arduino.write('r255;g255;b255;')
+    println("on")
     sleep(0.5)
     arduino.write('r000;g000;b000;')
+    println("off")
     sleep(0.5)
     arduino.write('r255;g255;b255;')
+    println("on")
     sleep(0.5)
     arduino.write('r000;g000;b000;')
+    println("off")
     sleep(0.5)
     arduino.write('r255;g255;b255;')
+    println("on")
     camera.capture('tempImage.jpg')
+    println("capture")
     sleep(0.5)
     arduino.write('r000;g000;b000;')
+    println("off")
 
 # Main Thread
 startedActivity = False
