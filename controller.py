@@ -83,6 +83,7 @@ textsToSpeak = [
     "Please add a task to the app."
 ]
 while True:
+    print("a")
     if connected:
         currentTime = time.time()
         data = arduino.read()
@@ -117,7 +118,7 @@ while True:
             intro = False
         print(startedActivity)
         print(currentTime)
-        if startedActivity:
+        if startedActivity and not intro:
             elapsed = currentTime - startTime
             total = float(tasks[currentTask]["time"]) * 60.0
             currentRgb = (int(elapsed*(255/total)), 255, 0)
@@ -131,4 +132,4 @@ while True:
     else:
         print("E: not connected to wifi")
 
-    sleep(0.05)
+    # sleep(0.05)
