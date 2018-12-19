@@ -111,9 +111,6 @@ while True:
             if elapsed > total/2:
                 # print(255-int(i*(255/totalTime))))
                 currentRgb = (255, 255-int((elapsed-(total/2))*(255/total)), 0)
-            currentRgb[0] = "{0:0=3d}".format(currentRgb[0])
-            currentRgb[1] = "{0:0=3d}".format(currentRgb[1])
-            currentRgb[2] = "{0:0=3d}".format(currentRgb[2])
             arduino.write('r{0:0=3d};g{0:0=3d};b{0:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
 
     else:
