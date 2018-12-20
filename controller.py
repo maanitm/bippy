@@ -86,9 +86,9 @@ textsToSpeak = [
 lastVal = "."
 def readArduino():
     global data, lastVal
-    if arduino.read() != lastVal:
-        data = arduino.read()
-        lastVal = arduino.read()
+    # if arduino.read() != lastVal:
+    data = arduino.read()
+        # lastVal = arduino.read()
     sleep(0.05)
 
 readThread = Thread(target=readArduino)
