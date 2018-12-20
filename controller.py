@@ -125,7 +125,7 @@ while True:
             sayText(textsToSpeak[1] % tasks[currentTask]["name"])
             startTime = time.time()
             intro = False
-        print(startedActivity)
+        # print(startedActivity)
         print(currentTime)
         if startedActivity and not intro:
             elapsed = currentTime - startTime
@@ -138,10 +138,11 @@ while True:
                 currentRgb = (0, 255, 0)
             else:
                 currentRgb = (255, 0, 0)
-            print(currentRgb)
+            # print(currentRgb)
             print('r{0:0=3d};g{1:0=3d};b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
             arduino.write('r{0:0=3d};g{1:0=3d};b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
             if elapsed >= total:
                 ioValue = "2"
+            print(ioValue)
     else:
         print("E: not connected to wifi")
