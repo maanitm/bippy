@@ -7,7 +7,7 @@ from gtts import gTTS
 import os
 import json,httplib
 
-connection = httplib.HTTPSConnection('54.145.224.112', 80)
+connection = httplib.HTTPConnection('54.145.224.112', 80)
 connection.connect()
 connection.request('POST', '/parse/classes/GameScore', json.dumps({
        "score": 1337,
