@@ -15,7 +15,7 @@ camera = PiCamera()
 
 # Variables
 connected = True
-ioValue = "."
+data = "."
 tasks = [{"name":"Math work", "time":2}, {"name":"English questions", "time":60}]
 name = "Maanit"
 
@@ -83,33 +83,33 @@ textsToSpeak = [
     "Goodbye!",
     "Please add a task to the app."
 ]
-
+lastVal = "."
 def readArduino():
-    global data
-    data = arduino.read()
+    global data, lastVal
+    if arduino.read() != lastVal:
+        data = arduino.read()
+        lastVal = arduino.read()
     sleep(0.05)
 
 readThread = Thread(target=readArduino)
 readThread.start()
 
 while True:
-    print("a")
     if connected:
         currentTime = time.time()
-        ioValue = data
-        print(ioValue[0])
-        if ioValue in "1":
+        print(data[0])
+        if data in "1":
             if tasks:
                 currentTask = 0
                 startedActivity = True
             else:
                 sayText(textsToSpeak[11])
-            ioValue = "."
-        if ioValue in "0":
+            data = "."
+        if data in "0":
             sayText(textsToSpeak[10])
-            ioValue = "."
+            data = "."
             startedActivity = False
-        if  ioValue in "2" and startedActivity:
+        if  data in "2" and startedActivity:
             sayText(textsToSpeak[5])
             takePicture()
             if len(tasks) > currentTask + 1:
@@ -118,7 +118,7 @@ while True:
             else:
                 sayText(textsToSpeak[9])
                 startedActivity = False
-            ioValue = "."
+            data = "."
         
         if startedActivity and intro:
             sayText(textsToSpeak[0])
@@ -142,6 +142,6 @@ while True:
             print('r{0:0=3d};g{1:0=3d};b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
             arduino.write('r{0:0=3d};g{1:0=3d};b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
             if elapsed >= total:
-                ioValue = 2
+                data = "2"
     else:
         print("E: not connected to wifi")
