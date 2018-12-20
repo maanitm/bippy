@@ -30,7 +30,7 @@ camera = PiCamera()
 # Variables
 connected = True
 data = "."
-tasks = [{"name":"Math work", "time":2}, {"name":"English questions", "time":60}]
+tasks = [{"name":"Math work", "time":120}, {"name":"English questions", "time":1800}]
 name = "Maanit"
 
 # Functions
@@ -112,7 +112,7 @@ while True:
         # print(startedActivity)
         if startedActivity and not intro:
             elapsed = currentTime - startTime
-            total = float(tasks[currentTask]["time"]) * 60.0
+            total = float(tasks[currentTask]["time"])
             print(total - elapsed)
             currentRgb = (0, 0, 0)
             if elapsed > total/2 and elapsed < 9*total/10:
