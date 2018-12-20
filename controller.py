@@ -134,7 +134,7 @@ while True:
             if elapsed > total/2 and elapsed < 9*total/10:
                 # print(255-int(i*(255/totalTime))))
                 currentRgb = (0, 255, 255)
-            else if elapsed < total/2:
+            elif elapsed < total/2:
                 currentRgb = (0, 255, 0)
             else:
                 currentRgb = (255, 0, 0)
