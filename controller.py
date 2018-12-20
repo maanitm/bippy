@@ -6,12 +6,25 @@ import time
 from gtts import gTTS
 import os
 
+from parse_rest.datatypes import Object
+from parse_rest.connection import register
+from parse_rest.user import User
+
 # Notes
-# IO Values - 0:Stop, 1:Start, 2:
+# IO Values - 0:Stop, 1:Start, 2:Click
 
 # Constants
 arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 camera = PiCamera()
+os.environ["PARSE_API_ROOT"] = "http://54.145.224.112:80/parse"
+
+APPLICATION_ID = 'ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7'
+REST_API_KEY = 'bippy123'
+MASTER_KEY = 'b374d90f0bee2c48f33462b395ae2d6d0adebebd'
+
+register(APPLICATION_ID, REST_API_KEY, master_key=MASTER_KEY)
+
+u = User.signup("maanitm", "12345", phone="678-641-7374")
 
 # Variables
 connected = True
