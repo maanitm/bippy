@@ -131,12 +131,17 @@ while True:
             elapsed = currentTime - startTime
             total = float(tasks[currentTask]["time"]) * 60.0
             currentRgb = (int(elapsed*(255/total)), 255, 0)
-            if elapsed > total/2:
+            if elapsed > total/2 and elapsed < 9*total/10:
                 # print(255-int(i*(255/totalTime))))
-                currentRgb = (255, 255-int((elapsed-(total/2))*(255/total)), 0)
+                currentRgb = (0, 255, 255)
+            else if elapsed < total/2:
+                currentRgb = (0, 255, 0)
+            else:
+                currentRgb = (255, 0, 0)
             print(currentRgb)
             print('r{0:0=3d};g{1:0=3d};b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
             arduino.write('r{0:0=3d};g{1:0=3d};b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
-
+            if elapsed >= total:
+                ioValue = "2"
     else:
         print("E: not connected to wifi")
