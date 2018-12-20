@@ -7,33 +7,25 @@ from gtts import gTTS
 import os
 import json,httplib
 
-connection = httplib.HTTPConnection('54.145.224.112', 80)
-connection.connect()
-connection.request('POST', '/parse/classes/GameScore', json.dumps({
-       "score": 1337,
-       "playerName": "Sean Plott",
-       "cheatMode": False
-     }), {
-       "X-Parse-Application-Id": "ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7",
-       "Content-Type": "application/json"
-     })
-results = json.loads(connection.getresponse().read())
-print results
-exit()
+# connection = httplib.HTTPConnection('54.145.224.112', 80)
+# connection.connect()
+# connection.request('POST', '/parse/classes/GameScore', json.dumps({
+#        "score": 1337,
+#        "playerName": "Sean Plott",
+#        "cheatMode": False
+#      }), {
+#        "X-Parse-Application-Id": "ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7",
+#        "Content-Type": "application/json"
+#      })
+# results = json.loads(connection.getresponse().read())
+# print results
+
 # Notes
 # IO Values - 0:Stop, 1:Start, 2:Click
 
 # Constants
 arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 camera = PiCamera()
-
-APPLICATION_ID = 'ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7'
-REST_API_KEY = 'bippy123'
-MASTER_KEY = 'b374d90f0bee2c48f33462b395ae2d6d0adebebd'
-
-register(APPLICATION_ID, REST_API_KEY, master_key=MASTER_KEY)
-
-u = User.signup("maanitm", "12345", phone="678-641-7374")
 
 # Variables
 connected = True
