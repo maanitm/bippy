@@ -5,18 +5,27 @@ from time import sleep
 import time
 from gtts import gTTS
 import os
+import json,httplib
 
-from parse_rest.datatypes import Object
-from parse_rest.connection import register
-from parse_rest.user import User
-
+connection = httplib.HTTPSConnection('http://54.145.224.112', 443)
+connection.connect()
+connection.request('POST', '/parse/classes/GameScore', json.dumps({
+       "score": 1337,
+       "playerName": "Sean Plott",
+       "cheatMode": False
+     }), {
+       "X-Parse-Application-Id": "ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7",
+       "Content-Type": "application/json"
+     })
+results = json.loads(connection.getresponse().read())
+print results
+exit()
 # Notes
 # IO Values - 0:Stop, 1:Start, 2:Click
 
 # Constants
 arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
 camera = PiCamera()
-os.environ["PARSE_API_ROOT"] = "http://54.145.224.112:80/parse"
 
 APPLICATION_ID = 'ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7'
 REST_API_KEY = 'bippy123'
