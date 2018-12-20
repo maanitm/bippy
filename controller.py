@@ -30,37 +30,9 @@ def sayText(text):
     talking = False
 
 def takePicture():
-    arduino.write('r255;')
-    arduino.write('g255;')
-    arduino.write('b255;')
-    print("on")
-    sleep(1)
-    arduino.write('r000;')
-    arduino.write('g000;')
-    arduino.write('b000;')
-    print("off")
-    sleep(1)
-    arduino.write('r255;')
-    arduino.write('g255;')
-    arduino.write('b255;')
-    print("on")
-    sleep(1)
-    arduino.write('r000;')
-    arduino.write('g000;')
-    arduino.write('b000;')
-    print("off")
-    sleep(1)
-    arduino.write('r255;')
-    arduino.write('g255;')
-    arduino.write('b255;')
-    print("on")
+    sleep(2)
     camera.capture('tempImage.jpg')
-    print("capture")
     sleep(1)
-    arduino.write('r000;')
-    arduino.write('g000;')
-    arduino.write('b000;')
-    print("off")
 
 # Main Thread
 startedActivity = False
@@ -83,12 +55,10 @@ textsToSpeak = [
     "Goodbye!",
     "Please add a task to the app."
 ]
-lastVal = "."
+
 def readArduino():
-    global data, lastVal
-    # if arduino.read() != lastVal:
+    global data
     data = arduino.read()
-        # lastVal = arduino.read()
     sleep(0.05)
 
 readThread = Thread(target=readArduino)
@@ -140,7 +110,7 @@ while True:
                 currentRgb = (255, 0, 0)
             # print(currentRgb)
             print('r{0:0=3d};g{1:0=3d};b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
-            arduino.write('r{0:0=3d};g{1:0=3d};b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
+            # arduino.write('r{0:0=3d};g{1:0=3d};b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
             if elapsed >= total:
                 data = "2"
     else:
