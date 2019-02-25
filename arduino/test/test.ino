@@ -1,13 +1,19 @@
-int redPin = 8;
-int greenPin = 7;
-int bluePin = 6;
+//int redPin = 8;
+//int greenPin = 7;
+//int bluePin = 6;
 
-int motorPin1 = 2;
-int motorPin2 = 3;
-int motorPin3 = 4;
-int motorPin4 = 5;
+//int motorPin1 = 2;
+//int motorPin2 = 3;
+//int motorPin3 = 4;
+//int motorPin4 = 5;
 
-int buttonPin = 9;
+#include <Adafruit_NeoPixel.h>
+#ifdef __AVR__
+  #include <avr/power.h>
+#endif
+
+int buttonPin = 3;
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(12, 5, NEO_GRB + NEO_KHZ800);
 
 int red = 0;
 int green = 0;
@@ -33,15 +39,16 @@ int currentTask = 0;
 
 void setup() {
   Serial.begin(9600);
+  pixels.begin();
   
-  pinMode(redPin, OUTPUT);
-  pinMode(greenPin, OUTPUT);
-  pinMode(bluePin, OUTPUT);
-
-  pinMode(motorPin1, OUTPUT);
-  pinMode(motorPin2, OUTPUT);
-  pinMode(motorPin3, OUTPUT);
-  pinMode(motorPin4, OUTPUT); 
+//  pinMode(redPin, OUTPUT);
+//  pinMode(greenPin, OUTPUT);
+//  pinMode(bluePin, OUTPUT);
+//
+//  pinMode(motorPin1, OUTPUT);
+//  pinMode(motorPin2, OUTPUT);
+//  pinMode(motorPin3, OUTPUT);
+//  pinMode(motorPin4, OUTPUT); 
   
   pinMode(buttonPin, INPUT);
 }
@@ -61,7 +68,7 @@ void loop() {
         blue = int(received[1]) * 100 + int(received[2]) * 10 + int(received[3]);
       } else if (received[0] == 'm') {
         int stepVal = int(received[1]) * 100 + int(received[2]) * 10 + int(received[3]);
-        moveSteps(stepVal);
+//        moveSteps(stepVal);
       }
       setColor(red, green, blue);
       received = "";
@@ -78,14 +85,8 @@ void loop() {
     if (buttonStarted == false) {
       buttonStartTime = millis();
       buttonStarted = true;
-    }
-  } else {
-    // button released
-    if (buttonState == 1) {
-      buttonState = 0;
-      buttonStarted = false;
+    } else {
       int holdLength = millis() - buttonStartTime;
-
       if (holdLength > 2250) {
         if (red == 0 && blue == 0 && green == 0) {
           red = 0;
@@ -100,7 +101,17 @@ void loop() {
           setColor(red, green, blue);
           Serial.println(0);
         }
-      } else {
+        buttonStarted = false;
+      }
+    }
+  } else {
+    // button released
+    if (buttonState == 1) {
+      buttonState = 0;
+      buttonStarted = false;
+      int holdLength = millis() - buttonStartTime;
+
+      if (holdLength < 2250) {
         Serial.println(2);
       }
     }
@@ -109,72 +120,73 @@ void loop() {
   delay(100);
 }
 
-void moveSteps(int steps) {
-  for(int x = 0; x < steps; x++) {
-    for(int i = 0; i < 8; i++) {
-      switch(i) { 
-        case 0: 
-          digitalWrite(motorPin1, LOW);  
-          digitalWrite(motorPin2, LOW); 
-          digitalWrite(motorPin3, LOW); 
-          digitalWrite(motorPin4, HIGH); 
-        break;  
-        case 1: 
-          digitalWrite(motorPin1, LOW);  
-          digitalWrite(motorPin2, LOW); 
-          digitalWrite(motorPin3, HIGH); 
-          digitalWrite(motorPin4, HIGH); 
-        break;  
-        case 2: 
-          digitalWrite(motorPin1, LOW);  
-          digitalWrite(motorPin2, LOW); 
-          digitalWrite(motorPin3, HIGH); 
-          digitalWrite(motorPin4, LOW); 
-        break;  
-        case 3: 
-          digitalWrite(motorPin1, LOW);  
-          digitalWrite(motorPin2, HIGH); 
-          digitalWrite(motorPin3, HIGH); 
-          digitalWrite(motorPin4, LOW); 
-        break;  
-        case 4: 
-          digitalWrite(motorPin1, LOW);  
-          digitalWrite(motorPin2, HIGH); 
-          digitalWrite(motorPin3, LOW); 
-          digitalWrite(motorPin4, LOW); 
-        break;  
-        case 5: 
-          digitalWrite(motorPin1, HIGH);  
-          digitalWrite(motorPin2, HIGH); 
-          digitalWrite(motorPin3, LOW); 
-          digitalWrite(motorPin4, LOW); 
-        break;  
-          case 6: 
-          digitalWrite(motorPin1, HIGH);  
-          digitalWrite(motorPin2, LOW); 
-          digitalWrite(motorPin3, LOW); 
-          digitalWrite(motorPin4, LOW); 
-        break;  
-        case 7: 
-          digitalWrite(motorPin1, HIGH);  
-          digitalWrite(motorPin2, LOW); 
-          digitalWrite(motorPin3, LOW); 
-          digitalWrite(motorPin4, HIGH); 
-        break;  
-        default: 
-          digitalWrite(motorPin1, LOW);  
-          digitalWrite(motorPin2, LOW); 
-          digitalWrite(motorPin3, LOW); 
-          digitalWrite(motorPin4, LOW); 
-        break;  
-      }
-      delay(stepDelay);
-    }   
-  }
-}
+//void moveSteps(int steps) {
+//  for(int x = 0; x < steps; x++) {
+//    for(int i = 0; i < 8; i++) {
+//      switch(i) { 
+//        case 0: 
+//          digitalWrite(motorPin1, LOW);  
+//          digitalWrite(motorPin2, LOW); 
+//          digitalWrite(motorPin3, LOW); 
+//          digitalWrite(motorPin4, HIGH); 
+//        break;  
+//        case 1: 
+//          digitalWrite(motorPin1, LOW);  
+//          digitalWrite(motorPin2, LOW); 
+//          digitalWrite(motorPin3, HIGH); 
+//          digitalWrite(motorPin4, HIGH); 
+//        break;  
+//        case 2: 
+//          digitalWrite(motorPin1, LOW);  
+//          digitalWrite(motorPin2, LOW); 
+//          digitalWrite(motorPin3, HIGH); 
+//          digitalWrite(motorPin4, LOW); 
+//        break;  
+//        case 3: 
+//          digitalWrite(motorPin1, LOW);  
+//          digitalWrite(motorPin2, HIGH); 
+//          digitalWrite(motorPin3, HIGH); 
+//          digitalWrite(motorPin4, LOW); 
+//        break;  
+//        case 4: 
+//          digitalWrite(motorPin1, LOW);  
+//          digitalWrite(motorPin2, HIGH); 
+//          digitalWrite(motorPin3, LOW); 
+//          digitalWrite(motorPin4, LOW); 
+//        break;  
+//        case 5: 
+//          digitalWrite(motorPin1, HIGH);  
+//          digitalWrite(motorPin2, HIGH); 
+//          digitalWrite(motorPin3, LOW); 
+//          digitalWrite(motorPin4, LOW); 
+//        break;  
+//          case 6: 
+//          digitalWrite(motorPin1, HIGH);  
+//          digitalWrite(motorPin2, LOW); 
+//          digitalWrite(motorPin3, LOW); 
+//          digitalWrite(motorPin4, LOW); 
+//        break;  
+//        case 7: 
+//          digitalWrite(motorPin1, HIGH);  
+//          digitalWrite(motorPin2, LOW); 
+//          digitalWrite(motorPin3, LOW); 
+//          digitalWrite(motorPin4, HIGH); 
+//        break;  
+//        default: 
+//          digitalWrite(motorPin1, LOW);  
+//          digitalWrite(motorPin2, LOW); 
+//          digitalWrite(motorPin3, LOW); 
+//          digitalWrite(motorPin4, LOW); 
+//        break;  
+//      }
+//      delay(stepDelay);
+//    }   
+//  }
+//}
  
 void setColor (int red, int green, int blue) {
-  analogWrite(redPin, red);
-  analogWrite(greenPin, green);
-  analogWrite(bluePin, blue);  
+  for(int i=0;i<12;i++){
+    pixels.setPixelColor(i, pixels.Color(red,green,blue));
+    pixels.show();
+  }
 }
