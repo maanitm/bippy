@@ -1,3 +1,6 @@
+import sys
+sys.path.append('/home/pi')
+
 from threading import Thread
 import serial
 from picamera import PiCamera
@@ -12,42 +15,47 @@ wifiPassword = ""
 username = "admin@bippy.org"
 password = "bippy123"
 
-connection = httplib.HTTPConnection('54.145.224.112', 80)
+tasks = [{"name":"Math work", "time":2}, {"name":"English questions", "time":60}]
+name = ""
 
-params = urllib.urlencode({"username":username,"password":password})
-connection.connect()
-connection.request('GET', '/parse/login?%s' % params, '', {
-       "X-Parse-Application-Id": "ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7",
-       "Content-Type": "application/json"
-    })
-user = json.loads(connection.getresponse().read())
-print(user)
+try:
+    connection = httplib.HTTPConnection('54.145.224.112', 80)
 
-connection.connect()
-connection.request('GET', '/parse/classes/Task', '', {
-       "X-Parse-Application-Id": "ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7",
-       "Content-Type": "application/json"
-    })
-results = json.loads(connection.getresponse().read())
+    params = urllib.urlencode({"username":username,"password":password})
+    connection.connect()
+    connection.request('GET', '/parse/login?%s' % params, '', {
+           "X-Parse-Application-Id": "ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7",
+           "Content-Type": "application/json"
+        })
+    user = json.loads(connection.getresponse().read())
+    print(user)
 
+    connection.connect()
+    connection.request('GET', '/parse/classes/Task', '', {
+           "X-Parse-Application-Id": "ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7",
+           "Content-Type": "application/json"
+        })
+    results = json.loads(connection.getresponse().read())
+    tasks = results["results"]
+    name = user["name"]
+    for task in tasks[:]:
+        if task["user"]["objectId"] != user["objectId"]:
+            tasks.remove(task)
+except:
+    print("cannot connect")
 # Notes
 # IO Values - 0:Stop, 1:Start, 2:Click
 
 # Constants
 arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
+arduino.write('r255g255b255;')
 #camera = PiCamera()
 
 # Variables
 connected = True
 data = "."
-tasks = [{"name":"Math work", "time":2}, {"name":"English questions", "time":60}]
-tasks = results["results"]
-name = user["name"]
 rgb = (0,0,255)
-
-for task in tasks[:]:
-    if task["user"]["objectId"] != user["objectId"]:
-        tasks.remove(task)
+backupUsed = False
 
 print(name)
 print(tasks)
@@ -55,11 +63,18 @@ print(tasks)
 # Functions
 
 def sayText(text):
+    global backupUsed
     talking = True
-    tts = gTTS(text=text, lang='en')
-    print(text)
-    tts.save("tempText.mp3")
-    os.system("mpg123 tempText.mp3")
+    try:
+        tts = gTTS(text=text, lang='en')
+        print(text)
+        tts.save("tempText.mp3")
+        os.system("mpg123 tempText.mp3")
+    except:
+        if backupUsed == False:
+            os.system("mpg123 ~/bippy/backupText.mp3")
+            backupUsed = True
+        print("cannot speak")
     talking = False
 
 def takePicture():
@@ -107,6 +122,7 @@ def readArduino():
 
 readThread = Thread(target=readArduino)
 readThread.start()
+
 
 while True:
     if connected:
