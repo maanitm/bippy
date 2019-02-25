@@ -5,33 +5,52 @@ from time import sleep
 import time
 from gtts import gTTS
 import os
-import json,httplib
+import json,httplib,urllib
 
-# connection = httplib.HTTPConnection('54.145.224.112', 80)
-# connection.connect()
-# connection.request('POST', '/parse/classes/GameScore', json.dumps({
-#        "score": 1337,
-#        "playerName": "Sean Plott",
-#        "cheatMode": False
-#      }), {
-#        "X-Parse-Application-Id": "ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7",
-#        "Content-Type": "application/json"
-#      })
-# results = json.loads(connection.getresponse().read())
-# print results
+wifiSSID = ""
+wifiPassword = ""
+username = "admin@bippy.org"
+password = "bippy123"
+
+connection = httplib.HTTPConnection('54.145.224.112', 80)
+
+params = urllib.urlencode({"username":username,"password":password})
+connection.connect()
+connection.request('GET', '/parse/login?%s' % params, '', {
+       "X-Parse-Application-Id": "ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7",
+       "Content-Type": "application/json"
+    })
+user = json.loads(connection.getresponse().read())
+print(user)
+
+connection.connect()
+connection.request('GET', '/parse/classes/Task', '', {
+       "X-Parse-Application-Id": "ebbb3fa530a6a5df5dcf5c6a1c13820c717b48f7",
+       "Content-Type": "application/json"
+    })
+results = json.loads(connection.getresponse().read())
 
 # Notes
 # IO Values - 0:Stop, 1:Start, 2:Click
 
 # Constants
 arduino = serial.Serial(port='/dev/ttyUSB0', baudrate=9600)
-camera = PiCamera()
+#camera = PiCamera()
 
 # Variables
 connected = True
 data = "."
 tasks = [{"name":"Math work", "time":2}, {"name":"English questions", "time":60}]
-name = "Maanit"
+tasks = results["results"]
+name = user["name"]
+rgb = (0,0,255)
+
+for task in tasks[:]:
+    if task["user"]["objectId"] != user["objectId"]:
+        tasks.remove(task)
+
+print(name)
+print(tasks)
 
 # Functions
 
@@ -44,9 +63,20 @@ def sayText(text):
     talking = False
 
 def takePicture():
-    sleep(2)
-    camera.capture('tempImage.jpg')
-    sleep(1)
+    #camera.capture('tempImage.jpg')
+    arduino.write("r255g255b255;")
+    sleep(0.5)
+    arduino.write("r000g000b000;")
+    sleep(0.5);
+    arduino.write("r255g255b255;")
+    sleep(0.5)
+    arduino.write("r000g000b000;")
+    sleep(0.5)
+    arduino.write("r255g255b255;")
+    sleep(0.5)
+    arduino.write("r000g000b000;")
+    sleep(0.5)
+    arduino.write("r000g000b255;")
 
 # Main Thread
 startedActivity = False
@@ -99,6 +129,7 @@ while True:
             if len(tasks) > currentTask + 1:
                 currentTask += 1
                 sayText(textsToSpeak[6] % tasks[currentTask]["name"])
+                startTime = time.time()
             else:
                 sayText(textsToSpeak[9])
                 startedActivity = False
@@ -123,8 +154,10 @@ while True:
             else:
                 currentRgb = (255, 0, 0)
             # print(currentRgb)
-            print('r{0:0=3d};g{1:0=3d};b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
-            # arduino.write('r{0:0=3d};g{1:0=3d};b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
+            if currentRgb != rgb:
+               print('r{0:0=3d}g{1:0=3d}b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
+               arduino.write('r{0:0=3d}g{1:0=3d}b{2:0=3d};'.format(currentRgb[0], currentRgb[1], currentRgb[2]))
+               rgb = currentRgb
             if elapsed >= total:
                 data = "2"
     else:
